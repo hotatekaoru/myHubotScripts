@@ -8,6 +8,7 @@
 #   Kaoru Hotate
 
 cheerio = require 'cheerio-httpcli'
+cronJob = require('cron').CronJob
 
 module.exports = (robot) ->
 
@@ -64,3 +65,34 @@ module.exports = (robot) ->
       else
         info = $('.trouble p').text()
         msg.send "#{title}は遅れているみたい。♪ へ(´д ｀へ)♪ (ノ´ д ｀)ノ♪ \n#{info}"
+
+  new cronJob('0 0 7 * * 1-5', () ->
+    # 有楽町線
+    metro_yu = 'http://transit.yahoo.co.jp/traininfo/detail/137/0/'
+    # 京浜東北線
+    jr_kt = 'http://transit.yahoo.co.jp/traininfo/detail/22/0/'
+    searchTrainCron(jr_kt)
+  ).start()
+
+  new cronJob('0 0 8 * * 1,3,5', () ->
+    # 山手線
+    jr_ym = 'http://transit.yahoo.co.jp/traininfo/detail/21/0/'
+    # 埼京線
+    jr_sk = 'http://transit.yahoo.co.jp/traininfo/detail/50/0/'
+    # 湘南新宿ライン
+    jr_ss = 'http://transit.yahoo.co.jp/traininfo/detail/25/0/'
+
+    searchTrainCron(jr_ym)
+    searchTrainCron(jr_sk)
+    searchTrainCron(jr_ss)
+  ).start()
+
+  searchTrainCron = (url) ->
+    cheerio.fetch url, (err, $, res) ->
+      if $('.icnNormalLarge').length
+        title = "#{$('h1').text()}"
+        robot.send {room: "#mybot"}, "#{title}は遅れてないよ。━ ━ (´･ω ･`)━ ━ "
+      else
+        info = $('.trouble p').text()
+        robot.send {room: "#mybot"}, "#{title}は遅れているみたい。♪ へ(´д ｀
+へ)♪ (ノ´ д ｀)ノ♪ \n#{info}"
