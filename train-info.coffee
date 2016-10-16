@@ -94,5 +94,4 @@ module.exports = (robot) ->
         robot.send {room: "#mybot"}, "#{title}は遅れてないよ。━ ━ (´･ω ･`)━ ━ "
       else
         info = $('.trouble p').text()
-        robot.send {room: "#mybot"}, "#{title}は遅れているみたい。♪ へ(´д ｀
-へ)♪ (ノ´ д ｀)ノ♪ \n#{info}"
+        robot.send {room: "#mybot"}, "#{title}は遅れているみたい。♪ へ(´д ｀へ)♪ (ノ´ д ｀)ノ♪ \n#{info}"
