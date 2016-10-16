@@ -90,8 +90,8 @@ module.exports = (robot) ->
 
   searchTrainCron = (url) ->
     cheerio.fetch url, (err, $, res) ->
+      title = "#{$('h1').text()}"
       if $('.icnNormalLarge').length
-        title = "#{$('h1').text()}"
         robot.send {room: "#mybot"}, "#{title}は遅れてないよ。━ ━ (´･ω ･`)━ ━ "
       else
         info = $('.trouble p').text()
