@@ -71,6 +71,7 @@ module.exports = (robot) ->
     metro_yu = 'http://transit.yahoo.co.jp/traininfo/detail/137/0/'
     # 京浜東北線
     jr_kt = 'http://transit.yahoo.co.jp/traininfo/detail/22/0/'
+    searchTrainCron(metro_yu)
     searchTrainCron(jr_kt)
   ).start()
 
