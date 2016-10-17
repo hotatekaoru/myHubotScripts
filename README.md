@@ -1,0 +1,2 @@
+# myHubotScripts
+CoffeeScriptで作成したHubot用スクリプト集です
